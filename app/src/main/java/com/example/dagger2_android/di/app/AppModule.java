@@ -9,18 +9,25 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.dagger2_android.R;
+import com.example.dagger2_android.constants.NetworkConstants;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class AppModule {
+
     @Provides
     @Singleton
-    String provideString() {
-        return "hello dude";
+    static Retrofit provideRetrofit() {
+        return new Retrofit
+                .Builder()
+                .baseUrl(NetworkConstants.BASEURL)
+                .addConverterFactory(GsonConverterFactory.create()).build();
     }
 
     @Provides
